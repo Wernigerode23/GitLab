@@ -24,6 +24,41 @@
    файл gitlab-ci.yml для своего проекта или вставьте код в соответствующее поле в шаблоне; 
    скриншоты с успешно собранными сборками.
 
+ ```
+ stages:
+  - test
+  - build
+
+test:
+  stage: test
+  image: golang:1.17
+  script:
+   - go test .
+
+static-analysis:
+ stage: test
+ image:
+  name: sonarsource/sonar-scanner-cli
+  entrypoint: [""]
+ variables:
+ script:
+  - sonar-scanner -Dsonar.projectKey=my-project1 -Dsonar.sources=. -Dsonar.host.url=http://130.193.36.200:9000/ -Dsonar.login=sqp_c54e4da7581c1413b62ed3cb5ea40455f23ce376
+
+build_manual:
+ stage: build
+ except:
+ - master
+ image: docker:latest
+ script:
+ - docker build .
+
+build:
+  stage: build
+  image: docker:latest
+  script:
+   - docker build .
+
+ ```
 
  
 
