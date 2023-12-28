@@ -24,17 +24,17 @@
    файл gitlab-ci.yml для своего проекта или вставьте код в соответствующее поле в шаблоне; 
    скриншоты с успешно собранными сборками.
 
-   stages:
+stages:
   - test
   - build
 
 test:
   stage: test
-  image: golang:1.16
-  script: 
+  image: golang:1.17
+  script:
    - go test .
 
-sonarqube-check:
+static-analysis:
  stage: test
  image:
   name: sonarsource/sonar-scanner-cli
@@ -43,24 +43,16 @@ sonarqube-check:
  script:
   - sonar-scanner -Dsonar.projectKey=gitproject -Dsonar.sources=. -Dsonar.host.url=http://gitlab.localdomain:9000 -Dsonar.login=sqp_c9ffd46d29e000ac6fbd79b194cdb9296ef56fc7
 
-build:
-  stage: build
-  image: docker:latest
-  only:
-    - master
-  script:
-   - docker build .
+
 
 build:
   stage: build
   image: docker:latest
-  when: manual
-  except:
-    - master
   script:
    - docker build .
 
 
+ 
 
 ![image](https://github.com/Wernigerode23/GitLab/assets/153208339/c6ce9af2-b417-4a2e-95d3-933339ebdfb1)
 
