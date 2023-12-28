@@ -24,7 +24,9 @@
    
  * файл gitlab-ci.yml для своего проекта или вставьте код в соответствующее поле в шаблоне; 
  * скриншоты с успешно собранными сборками.
- stages:
+
+   
+stages:
  - test
  - build
 
@@ -56,6 +58,8 @@ build:
  image: docker:latest
  script:
   - docker build .
+
+
 ![image](https://github.com/Wernigerode23/GitLab/assets/153208339/c6ce9af2-b417-4a2e-95d3-933339ebdfb1)
 
  
